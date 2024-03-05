@@ -89,7 +89,7 @@ const Auth = () =>{
                             cursor-pointer hover:opacity-80 transition ">
                                 <FcGoogle size={30} />
                             </div>
-                            <div onClick={()=> signIn('github', { callbackUrl: '/profiles' }) } className="w-10 h-10 bg-white rounded-full flex items-center justify-center
+                            <div onClick={()=> signIn('github', { callbackUrl: `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/callback/github` }) } className="w-10 h-10 bg-white rounded-full flex items-center justify-center
                             cursor-pointer hover:opacity-80 transition ">
                                 <FaGithub size={30} />
                             </div>
