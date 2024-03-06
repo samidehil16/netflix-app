@@ -23,7 +23,7 @@ const Auth = () =>{
            await signIn('credentials',{
                email,
                password,
-               callbackUrl:`${process.env.NEXT_PUBLIC_APP_URL}/profiles`
+               callbackUrl:"/profiles"
            })
         } catch (error) {
            console.log(error);
