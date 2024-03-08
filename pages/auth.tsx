@@ -23,7 +23,7 @@ const Auth = () =>{
            await signIn('credentials',{
                email,
                password,
-               callbackUrl:"/profiles"
+               callbackUrl:"https://netflix-app-beta-flame.vercel.app/profiles"
            })
         } catch (error) {
            console.log(error);

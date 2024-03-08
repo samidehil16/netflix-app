@@ -61,6 +61,9 @@ export default NextAuth({
     pages: {
         signIn: '/auth',
     },
+    callbacks:{
+        
+    },
     debug: process.env.NODE_ENV == 'development',
     adapter: PrismaAdapter(prismadb),
     session: {
