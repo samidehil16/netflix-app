@@ -5,6 +5,26 @@ import { signIn } from 'next-auth/react';
 
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
+import { getServerSession } from "next-auth";
+import { GetServerSidePropsContext } from "next";
+import { authOptions } from "./api/auth/[...nextauth]";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+    const session = await getServerSession(context.req, context.res, authOptions);
+  
+    if (session) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+  
+    return {
+      props: {},
+    };
+}
 
 const Auth = () =>{
 
@@ -12,6 +32,8 @@ const Auth = () =>{
     const [name,setName] = useState('');
     const [password,setPassword] = useState('');
     const [variant,setVariant] = useState('login')
+
+
 
 
     const toggleVariant = useCallback(() => {
@@ -23,7 +45,7 @@ const Auth = () =>{
            await signIn('credentials',{
                email,
                password,
-               callbackUrl:"https://netflix-app-beta-flame.vercel.app/profiles"
+               callbackUrl:"/profiles"
            })
         } catch (error) {
            console.log(error);
@@ -85,11 +107,11 @@ const Auth = () =>{
                             {variant == 'login' ? 'Login' : 'Sign up'}
                         </button>
                         <div className="flex flex-row items-center gap-4 my-8 justify-center">
-                            <div onClick={()=> signIn('google', { callbackUrl: 'https://netflix-app-beta-flame.vercel.app/api/auth/callback/google' }) } className="w-10 h-10 bg-white rounded-full flex items-center justify-center
+                            <div onClick={()=> signIn('google', { callbackUrl: '/profiles' }) } className="w-10 h-10 bg-white rounded-full flex items-center justify-center
                             cursor-pointer hover:opacity-80 transition ">
                                 <FcGoogle size={30} />
                             </div>
-                            <div onClick={()=> signIn('github', { callbackUrl: 'https://netflix-app-beta-flame.vercel.app/profiles' }) } className="w-10 h-10 bg-white rounded-full flex items-center justify-center
+                            <div onClick={()=> signIn('github', { callbackUrl: '/profiles' }) } className="w-10 h-10 bg-white rounded-full flex items-center justify-center
                             cursor-pointer hover:opacity-80 transition ">
                                 <FaGithub size={30} />
                             </div>
